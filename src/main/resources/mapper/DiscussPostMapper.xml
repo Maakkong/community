@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nowcoder.community.dao.DiscussPostMapper">
+    <sql id="selectFields">
+        id,user_id,title,content,type,status,create_time,comment_count,score
+    </sql>
+
+    <sql id="insertFields">
+        user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+
+    <insert id="insertDiscussPost" parameterType="com.nowcoder.community.entity.DiscussPost" keyProperty="id">
+        INSERT INTO discuss_post(<include refid="insertFields"></include>)
+        VALUES (#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
+    </insert>
+
+    <select id="selectDiscussPosts" resultType="com.nowcoder.community.entity.DiscussPost">
+        SELECT <include refid="selectFields"></include>
+        FROM discuss_post
+        WHERE status!=2
+        <if test="userId!=0">
+            AND user_id=#{userId}
+        </if>
+        ORDER BY type desc, create_time desc
+        limit #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectDiscussPostRows" resultType="java.lang.Integer">
+        SELECT count(id)
+        FROM discuss_post
+        WHERE status!=2
+        <if test="userId!=0">
+            AND user_id=#{userId}
+        </if>
+    </select>
+
+    <select id="selectDiscussPostById" resultType="com.nowcoder.community.entity.DiscussPost">
+        SELECT <include refid="selectFields"></include>
+        FROM discuss_post
+        WHERE id=#{id}
+    </select>
+
+
+</mapper>

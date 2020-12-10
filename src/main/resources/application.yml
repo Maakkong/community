@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /community
+spring:
+  #模板引擎
+  thymeleaf:
+    cache: true
+  #datasource
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 1452
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 30000
+  #Mail
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: 896020325@qq.com
+    #授权码 msvypeymipibbbcf
+    password: msvypeymipibbbcf
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.nowcoder.community.entity
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+#log
+logging:
+  level.com.nowcoder.community: debug
+  file:
+    name: e:/nowcoder/community.log
+
+#community
+community:
+  path:
+    domain: http://localhost:8080
+    upload: D:/work/upload/
+
+
+
