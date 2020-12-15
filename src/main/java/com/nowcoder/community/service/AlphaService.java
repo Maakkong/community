@@ -8,9 +8,13 @@ import com.nowcoder.community.entity.User;
 import com.nowcoder.community.util.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -31,6 +35,9 @@ public class AlphaService {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;;
 
     public AlphaService(){
         System.out.println("实例化AlphaService");
@@ -56,7 +63,7 @@ public class AlphaService {
      * @return
      */
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
-    public Object save(){
+    public Object save1(){
         //新增用户
         User user=new User();
         user.setUsername("alpha");
@@ -77,5 +84,36 @@ public class AlphaService {
         Integer.valueOf("ABC");
 
         return "ok";
+    }
+
+    public Object save2(){
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+        return transactionTemplate.execute(new TransactionCallback<Object>() {
+            @Override
+            public Object doInTransaction(TransactionStatus transactionStatus) {
+                //新增用户
+                User user=new User();
+                user.setUsername("beta");
+                user.setSalt(CommunityUtil.generateUUID().substring(0,5));
+                user.setPassword(CommunityUtil.MD5("123"+user.getSalt()));
+                user.setEmail("beta@qq.com");
+                user.setHeaderUrl("https://picsum.photos/60");
+                user.setCreateTime(new Date());
+                userMapper.insertUser(user);
+                //新增帖子
+                DiscussPost post=new DiscussPost();
+                post.setUserId(user.getId());
+                post.setTitle("新人报道");
+                post.setContent("新人报道，HELLO");
+                post.setCreateTime(new Date());
+                discussPostMapper.insertDiscussPost(post);
+
+                Integer.valueOf("ABC");
+
+                return "ok";
+            }
+        });
     }
 }
