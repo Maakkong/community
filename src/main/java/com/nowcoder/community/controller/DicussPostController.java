@@ -68,7 +68,7 @@ public class DicussPostController implements CommunityConstant {
     }
 
     /**
-     *
+     *访问帖子详情
      * @param id
      * @param model
      * @param page
@@ -125,5 +125,6 @@ public class DicussPostController implements CommunityConstant {
         model.addAttribute("comments",commentVoList);
         return "site/discuss-detail";
     }
+
 
 }

@@ -5,6 +5,13 @@
     <sql id="selectFields">
         id, user_id, entity_type, entity_id, target_id, content, status, create_time
     </sql>
+    <sql id="insertFields">
+        user_id, entity_type, entity_id, target_id, content, status, create_time
+    </sql>
+    <insert id="insertComment">
+        INSERT INTO comment (<include refid="insertFields"></include>)
+        VALUES (#{userId},#{entityType},#{entityId},#{targetId},#{content},#{status},#{createTime})
+    </insert>
     <select id="selectCommentByEntity" resultType="com.nowcoder.community.entity.Comment">
         SELECT <include refid="selectFields"></include>
         FROM comment

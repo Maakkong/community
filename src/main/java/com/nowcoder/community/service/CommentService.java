@@ -28,4 +28,10 @@ public interface CommentService {
      */
     int findCommentsCountByEntity(Integer entityType,Integer entityId);
 
+    /**
+     * 添加评论
+     * @param comment
+     * @return
+     */
+    int addComment(Comment comment);
 }

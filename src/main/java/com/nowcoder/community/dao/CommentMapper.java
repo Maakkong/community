@@ -33,4 +33,11 @@ public interface CommentMapper {
     int selectCountByEntity(@Param("entityType") Integer entityType,
                             @Param("entityId") Integer entityId);
 
+    /**
+     * 插入评论
+     * @param comment
+     * @return
+     */
+    int insertComment(Comment comment);
+
 }

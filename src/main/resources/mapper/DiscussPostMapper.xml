@@ -14,6 +14,12 @@
         VALUES (#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
     </insert>
 
+    <update id="updateCommentCount">
+        UPDATE discuss_post
+        SET comment_count=#{commentCount}+1
+        WHERE id=#{id}
+    </update>
+
     <select id="selectDiscussPosts" resultType="com.nowcoder.community.entity.DiscussPost">
         SELECT <include refid="selectFields"></include>
         FROM discuss_post
