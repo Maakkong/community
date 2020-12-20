@@ -89,7 +89,7 @@ public class DicussPostController implements CommunityConstant {
         //评论：帖子的评论
         //回复：评论的评论
         List<Comment> commentsByEntity =
-                commentService.findCommentsByEntity(ENTITY_TYPE_POST, discussPostById.getId(), page.offsetget(), page.getLimit());
+                commentService.findCommentsByEntity(ENTITY_TYPE_POST, discussPostById.getId(), page.getOffset(), page.getLimit());
         //评论VO列表
         List<Map<String, Object>> commentVoList = new ArrayList<>();
         if(commentsByEntity!=null){
