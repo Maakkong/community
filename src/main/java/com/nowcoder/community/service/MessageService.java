@@ -35,7 +35,7 @@ public interface MessageService {
      * @param limit
      * @return
      */
-    List<Message> findLettes(String conversationId,Integer offset,Integer limit);
+    List<Message> findLetters(String conversationId, Integer offset, Integer limit);
 
     /**
      * 一个会话的消息数
@@ -51,4 +51,18 @@ public interface MessageService {
      * @return
      */
     int findLetterUnreadCount(Integer userId,String conversationId);
+
+    /**
+     * 添加消息
+     * @param message
+     * @return
+     */
+    int addMessage(Message message);
+
+    /**
+     * 消息状态变为已读
+     * @param ids
+     * @return
+     */
+    int readMessage(List<Integer> ids);
 }
