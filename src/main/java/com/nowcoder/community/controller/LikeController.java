@@ -1,5 +1,6 @@
 package com.nowcoder.community.controller;
 
+import com.nowcoder.community.annotation.LoginRequired;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.LikeService;
 import com.nowcoder.community.util.CommunityUtil;
@@ -29,13 +30,13 @@ public class LikeController {
 
     @RequestMapping(path = "/like",method = RequestMethod.POST)
     @ResponseBody
-    public String like(Integer entityType,Integer entityId){
+    public String like(Integer entityType,Integer entityId,Integer entityUserId){
         User user = hostHolder.getUser();
         if(user==null){
             return CommunityUtil.getJSONString(1,"请先登录");
         }
         //点赞
-        likeService.like(user.getId(),entityType,entityId);
+        likeService.like(user.getId(),entityType,entityId,entityUserId);
         //数量
         long likeCount=likeService.findEntityLikeCount(entityType,entityId);
         //状态
