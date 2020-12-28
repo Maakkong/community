@@ -7,6 +7,7 @@ package com.nowcoder.community.service;
  * @Description No Description
  */
 public interface LikeService {
+
     /**
      * 点赞
      * @param userId
