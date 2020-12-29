@@ -18,6 +18,14 @@ public class RedisKeyUtil {
 
     private static final String PREFIX_FOLLOWER="follower";
 
+    private static final String PREFIX_KAPTCHA="kapthcha";
+
+    private static final String PREFIX_TICKET="ticket";
+
+    private static final String PREFIX_USER="user";
+
+
+
 
     /**
      * 生成某个实体的赞
@@ -58,4 +66,26 @@ public class RedisKeyUtil {
         return PREFIX_FOLLOWER+SPLIT+entityType+SPLIT+entityId;
     }
 
+    /**
+     * 验证码
+     * @param owner
+     * @return
+     */
+    public static String getKaptchaKey(String owner){
+        return PREFIX_KAPTCHA+SPLIT+owner;
+    }
+
+    /**
+     * 登录凭证
+     * @param ticket
+     * @return
+     * tickt:string
+     */
+    public static String getTicketKey(String ticket){
+        return PREFIX_TICKET+SPLIT+ticket;
+    }
+
+    public static String getUserKey(Integer userId){
+        return PREFIX_USER+SPLIT+userId;
+    }
 }

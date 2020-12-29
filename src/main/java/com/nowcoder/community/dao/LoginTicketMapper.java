@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.*;
  * @author 不白而痴
  * @version 1.0
  * @date 2020/11/22 12:52
- * @Description No Description
+ * @Description 登录凭证
  */
+
 @Mapper
+@Deprecated
 public interface LoginTicketMapper {
     /**
      *插入登录凭证
