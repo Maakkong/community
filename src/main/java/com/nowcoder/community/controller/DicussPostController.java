@@ -96,7 +96,7 @@ public class DicussPostController implements CommunityConstant {
         //评论分页信息
         page.setLimit(5);
         page.setPath("/discuss/detail/"+id);
-        page.setRows(discussPostById.getCommentCount());
+        page.setRows(commentService.findCommentsCountByEntity(ENTITY_TYPE_POST,discussPostById.getId()));
         //评论：帖子的评论
         //回复：评论的评论
         List<Comment> commentsByEntity =
