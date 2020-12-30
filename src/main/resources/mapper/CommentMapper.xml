@@ -28,4 +28,9 @@
         AND entity_type=#{entityType}
         AND entity_id=#{entityId}
     </select>
+    <select id="selectCommentById" resultType="com.nowcoder.community.entity.Comment">
+        SELECT <include refid="selectFields"></include>
+        FROM message
+        WHERE id=#{id}
+    </select>
 </mapper>

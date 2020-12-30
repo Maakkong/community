@@ -40,4 +40,11 @@ public interface CommentMapper {
      */
     int insertComment(Comment comment);
 
+    /**
+     * 按id查询
+     * @param id
+     * @return
+     */
+    Comment selectCommentById(@Param("id") Integer id);
+
 }
