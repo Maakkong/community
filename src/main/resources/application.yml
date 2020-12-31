@@ -44,7 +44,11 @@ spring:
       enable-auto-commit: true
       #自动提交间隔
       auto-commit-interval: 3000
-
+  #elasticsearch
+  data:
+    elasticsearch:
+      cluster-name: nowcoder
+      cluster-nodes: localhost:9300
 
 #mybatis
 mybatis:
