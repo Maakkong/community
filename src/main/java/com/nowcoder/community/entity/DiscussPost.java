@@ -30,17 +30,17 @@ public class DiscussPost {
     private String content;
 
     @Field(type= FieldType.Integer)
-    private Integer type;
+    private Integer type=0;
 
     @Field(type= FieldType.Integer)
-    private Integer status;
+    private Integer status=0;
 
     @Field(type= FieldType.Date)
     private Date createTime;
 
     @Field(type= FieldType.Integer)
-    private Integer commentCount;
+    private Integer commentCount=0;
 
     @Field(type= FieldType.Double)
-    private Double score;
+    private Double score=0.0;
 }

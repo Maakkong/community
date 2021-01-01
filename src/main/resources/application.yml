@@ -57,6 +57,7 @@ mybatis:
   configuration:
     use-generated-keys: true
     map-underscore-to-camel-case: true
+
 #log
 logging:
   level.com.nowcoder.community: debug

@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CookieUtil {
 
+    /**
+     * 获取cookie值
+     * @param request
+     * @param name
+     * @return
+     */
     public static String getValue(HttpServletRequest request,String name){
         if(request==null||name==null){
             throw new IllegalArgumentException("参数不能为空！");
