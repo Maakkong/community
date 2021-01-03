@@ -16,7 +16,7 @@
 
     <update id="updateCommentCount">
         UPDATE discuss_post
-        SET comment_count=#{commentCount}+1
+        SET comment_count=#{commentCount}
         WHERE id=#{id}
     </update>
 

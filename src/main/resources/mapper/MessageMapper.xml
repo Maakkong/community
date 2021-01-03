@@ -14,7 +14,7 @@
     </insert>
 
     <update id="updateStatus">
-        UPDATE message SET status=1 WHERE id IN
+        UPDATE message SET status=#{status} WHERE id IN
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>

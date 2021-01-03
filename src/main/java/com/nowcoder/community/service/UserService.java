@@ -2,7 +2,9 @@ package com.nowcoder.community.service;
 
 import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -50,5 +52,12 @@ public interface UserService {
      * @return
      */
     User findUserByName(String username);
+
+    /**
+     * 获取用户权限
+     * @param userId
+     * @return
+     */
+    Collection<? extends GrantedAuthority> getAuthorities(Integer userId);
 
 }

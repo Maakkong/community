@@ -61,7 +61,7 @@ public class MessageController implements CommunityConstant {
                 map.put("letterCount",messageService.findLetterCount(message.getConversationId()));
                 map.put("unreadCount",messageService.findLetterUnreadCount(user.getId(),message.getConversationId()));
                 //当前用户是发起方还是接受方
-                int targetId=user.getId()==message.getFromId()?message.getToId():message.getFromId();
+                int targetId=user.getId().equals(message.getFromId())?message.getToId():message.getFromId();
                 map.put("target",userService.findUserById(targetId));
 
                 conversations.add(map);
@@ -119,7 +119,7 @@ public class MessageController implements CommunityConstant {
         String ids[]=conversationId.split("_");
         int id0=Integer.parseInt(ids[0]);
         int id1=Integer.parseInt(ids[1]);
-        if(hostHolder.getUser().getId()==id0){
+        if(hostHolder.getUser().getId().equals(id0)){
             return userService.findUserById(id1);
         }
         return userService.findUserById(id0);
@@ -133,8 +133,9 @@ public class MessageController implements CommunityConstant {
     private List<Integer> getLettersIds(List<Message> letterList){
         List<Integer> ids = new ArrayList<>();
         if(letterList!=null){
+            User user = hostHolder.getUser();
             for (Message message : letterList) {
-                if(message.getToId()==hostHolder.getUser().getId() && message.getStatus()==0){
+                if(message.getToId().equals(user.getId()) && message.getStatus()==0){
                     ids.add(message.getId());
                 }
             }
@@ -181,8 +182,8 @@ public class MessageController implements CommunityConstant {
 
         //查询评论类
         Message message = messageService.findLatestNotice(user.getId(), TOPIC_COMMENT);
-        Map<String, Object> messageVo = new HashMap();
         if(message!=null){
+            Map<String, Object> messageVo = new HashMap();
             messageVo.put("message",message);
 
             String content= HtmlUtils.htmlUnescape(message.getContent());
@@ -197,13 +198,15 @@ public class MessageController implements CommunityConstant {
             messageVo.put("count",count);
             int unreadCount=messageService.findNoticeUnreadCount(user.getId(),TOPIC_COMMENT);
             messageVo.put("unreadCount",unreadCount);
+            model.addAttribute("commentNotice",messageVo);
         }
-        model.addAttribute("commentNotice",messageVo);
+
 
         //点赞通知
         message = messageService.findLatestNotice(user.getId(), TOPIC_LIKE);
-        messageVo = new HashMap();
         if(message!=null){
+            Map<String, Object> messageVo = new HashMap();
+            messageVo = new HashMap();
             messageVo.put("message",message);
 
             String content= HtmlUtils.htmlUnescape(message.getContent());
@@ -218,13 +221,14 @@ public class MessageController implements CommunityConstant {
             messageVo.put("count",count);
             int unreadCount=messageService.findNoticeUnreadCount(user.getId(),TOPIC_LIKE);
             messageVo.put("unreadCount",unreadCount);
+            model.addAttribute("likeNotice",messageVo);
         }
-        model.addAttribute("likeNotice",messageVo);
+
 
         //关注通知
         message = messageService.findLatestNotice(user.getId(), TOPIC_FOLLOW);
-        messageVo = new HashMap();
         if(message!=null){
+            Map<String, Object> messageVo = new HashMap();
             messageVo.put("message",message);
 
             String content= HtmlUtils.htmlUnescape(message.getContent());
@@ -238,9 +242,8 @@ public class MessageController implements CommunityConstant {
             messageVo.put("count",count);
             int unreadCount=messageService.findNoticeUnreadCount(user.getId(),TOPIC_FOLLOW);
             messageVo.put("unreadCount",unreadCount);
+            model.addAttribute("followNotice",messageVo);
         }
-        model.addAttribute("followNotice",messageVo);
-
         //查询未读消息数量
         //私信
         int letterUnreadCount=messageService.findLetterUnreadCount(user.getId(),null);
