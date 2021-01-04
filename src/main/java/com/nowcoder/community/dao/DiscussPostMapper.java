@@ -55,4 +55,19 @@ public interface DiscussPostMapper {
                            @Param("commentCount") Integer commentCount);
 
 
+    /**
+     * 更改帖子类型
+     * @param id
+     * @param type
+     * @return
+     */
+    int updateType(@Param("id") Integer id, @Param("type") Integer type);
+
+    /**
+     * 修改帖子状态
+     * @param id
+     * @param status
+     * @return
+     */
+    int updateStatus(@Param("id") Integer id, @Param("status") Integer status);
 }

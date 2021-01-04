@@ -47,4 +47,20 @@ public interface DiscussPostService {
      * @return
      */
     int updateCommentCount(Integer id,Integer commentCount);
+
+    /**
+     * 更改帖子类型
+     * @param id
+     * @param type
+     * @return
+     */
+    int updateType(Integer id,Integer type);
+
+    /**
+     * 更新帖子状态
+     * @param id
+     * @param status
+     * @return
+     */
+    int updateStatus(Integer id,Integer status);
 }

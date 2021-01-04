@@ -66,6 +66,11 @@ public interface CommunityConstant {
     String TOPIC_PUBLISH="publish";
 
     /**
+     * 主题 删贴
+     */
+    String TOPIC_DELETE="publish";
+
+    /**
      * 系统用户id
      */
     int SYSTEM_USER_ID=1;

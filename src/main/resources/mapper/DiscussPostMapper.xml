@@ -20,6 +20,18 @@
         WHERE id=#{id}
     </update>
 
+    <update id="updateType">
+        UPDATE discuss_post
+        SET type=#{type}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE discuss_post
+        SET status=#{status}
+        WHERE id=#{id}
+    </update>
+
     <select id="selectDiscussPosts" resultType="com.nowcoder.community.entity.DiscussPost">
         SELECT <include refid="selectFields"></include>
         FROM discuss_post

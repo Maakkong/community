@@ -80,7 +80,9 @@ public class ElasticSearchTest {
     }
     @Test
     void testDelete(){
-        discussPostRepository.deleteById(231);
+        discussPostRepository.deleteById(291);
+        discussPostRepository.deleteById(292);
+        discussPostRepository.deleteById(294);
     }
 
     @Test
