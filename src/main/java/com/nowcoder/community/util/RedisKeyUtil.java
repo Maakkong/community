@@ -24,6 +24,10 @@ public class RedisKeyUtil {
 
     private static final String PREFIX_USER="user";
 
+    private static final String PREFIX_UV="uv";
+
+    private static final String PREFIX_DAU="dau";
+
 
 
 
@@ -85,7 +89,52 @@ public class RedisKeyUtil {
         return PREFIX_TICKET+SPLIT+ticket;
     }
 
+    /**
+     * 缓存中暂存user
+     * @param userId
+     * @return
+     * user:userId
+     */
     public static String getUserKey(Integer userId){
         return PREFIX_USER+SPLIT+userId;
     }
+
+    /**
+     * 单日独立访客
+     * @param date
+     * @return
+     */
+    public static String getUVKey(String date){
+        return PREFIX_UV+SPLIT+date;
+    }
+
+    /**
+     * 区间UV
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static String getUVKey(String startDate,String endDate){
+        return PREFIX_UV+SPLIT+startDate+SPLIT+endDate;
+    }
+
+    /**
+     * 单日活跃用户
+     * @param date
+     * @return
+     */
+    public static String getDAUKey(String date){
+        return PREFIX_DAU+SPLIT+date;
+    }
+
+    /**
+     * 区间日活跃用户
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static String getDAUKey(String startDate,String endDate){
+        return PREFIX_DAU+SPLIT+startDate+SPLIT+endDate;
+    }
+
 }
