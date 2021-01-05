@@ -68,7 +68,7 @@ public interface CommunityConstant {
     /**
      * 主题 删贴
      */
-    String TOPIC_DELETE="publish";
+    String TOPIC_DELETE="delete";
 
     /**
      * 系统用户id
