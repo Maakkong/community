@@ -15,9 +15,10 @@ public interface DiscussPostService {
      * @param userId
      * @param offset
      * @param limit
+     * @param orederMode
      * @return
      */
-    List<DiscussPost> findDiscussionPosts(Integer userId,Integer offset,Integer limit);
+    List<DiscussPost> findDiscussionPosts(Integer userId,Integer offset,Integer limit,Integer orederMode);
 
     /**
      * 总行数
@@ -63,4 +64,6 @@ public interface DiscussPostService {
      * @return
      */
     int updateStatus(Integer id,Integer status);
+
+    int updateScore(int postId, double score);
 }

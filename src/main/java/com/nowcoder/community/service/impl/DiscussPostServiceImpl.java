@@ -24,8 +24,8 @@ public class DiscussPostServiceImpl implements DiscussPostService {
     SensitiveFilter sensitiveFilter;
 
     @Override
-    public List<DiscussPost> findDiscussionPosts(Integer userId, Integer offset, Integer limit) {
-        return discussPostMapper.selectDiscussPosts(userId,offset,limit);
+    public List<DiscussPost> findDiscussionPosts(Integer userId, Integer offset, Integer limit,Integer orederMode) {
+        return discussPostMapper.selectDiscussPosts(userId,offset,limit,orederMode);
     }
 
     @Override
@@ -67,5 +67,10 @@ public class DiscussPostServiceImpl implements DiscussPostService {
     @Override
     public int updateStatus(Integer id, Integer status) {
         return discussPostMapper.updateStatus(id, status);
+    }
+
+    @Override
+    public int updateScore(int postId, double score) {
+       return discussPostMapper.updateScore(postId,score);
     }
 }

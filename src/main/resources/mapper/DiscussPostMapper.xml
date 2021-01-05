@@ -31,6 +31,11 @@
         SET status=#{status}
         WHERE id=#{id}
     </update>
+    <update id="updateScore">
+        UPDATE discuss_post
+        SET score=#{score}
+        WHERE id=#{id}
+    </update>
 
     <select id="selectDiscussPosts" resultType="com.nowcoder.community.entity.DiscussPost">
         SELECT <include refid="selectFields"></include>
@@ -39,7 +44,12 @@
         <if test="userId!=0">
             AND user_id=#{userId}
         </if>
-        ORDER BY type desc, create_time desc
+        <if test="orderMode==0">
+            ORDER BY type desc, create_time desc
+        </if>
+        <if test="orderMode==1">
+            ORDER BY type desc, score desc, create_time desc
+        </if>
         limit #{limit} OFFSET #{offset}
     </select>
 

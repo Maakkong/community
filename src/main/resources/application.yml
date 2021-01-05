@@ -49,7 +49,35 @@ spring:
     elasticsearch:
       cluster-name: nowcoder
       cluster-nodes: localhost:9300
-
+  #Spring线程池
+  task:
+    #普通
+    execution:
+      pool:
+        core-size: 5
+        max-size: 15
+        #队列容量
+        queue-capacity: 100
+    #定时
+    scheduling:
+      pool:
+        size: 5
+  #定时调度
+  quartz:
+    job-store-type: jdbc
+    scheduler-name: communityScheduler
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            isClustered: true
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
 #mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml

@@ -18,12 +18,14 @@ public interface DiscussPostMapper {
      * @param userId 默认为0
      * @param offset 起始行
      * @param limit  每页包含数据数
+     * @param orderMode 排序方法
      * @return
      */
     List<DiscussPost> selectDiscussPosts(
             @Param("userId") Integer userId,
             @Param("offset") Integer offset,
-            @Param("limit") Integer limit);
+            @Param("limit") Integer limit,
+            @Param("orderMode") Integer orderMode);
 
     /**
      * 总行数
@@ -70,4 +72,6 @@ public interface DiscussPostMapper {
      * @return
      */
     int updateStatus(@Param("id") Integer id, @Param("status") Integer status);
+
+    int updateScore(@Param("id") int id, @Param("score") double score);
 }
