@@ -27,7 +27,7 @@ import java.util.Date;
  */
 public class PostScoreRefreshJob implements Job, CommunityConstant {
 
-    private static Logger logger=LoggerFactory.getLogger(PostScoreRefreshJob.class);
+    private static final Logger logger=LoggerFactory.getLogger(PostScoreRefreshJob.class);
 
     @Autowired
     private RedisTemplate redisTemplate;
