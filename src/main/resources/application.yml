@@ -101,6 +101,13 @@ wk:
     command: D:/StudySoftware/wkhtmltopdf/bin/wkhtmltoimage
     storage: D:/work/data/wk-images
 
+qiniu:
+  key:
+    access: hIImuGSYiI_vDnYx03HDD3SUBNOlHEDgvtDKXH1b
+    secret: FMueRzJuYDr59ImumXoDdsqxRMTVCEJhiLqF_FP3
+  bucket:
+    name: bubaierchi
+    url: http://qmhwetlj7.hn-bkt.clouddn.com
 
 
 

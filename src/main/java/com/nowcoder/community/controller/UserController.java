@@ -8,6 +8,8 @@ import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
 import com.nowcoder.community.util.HostHolder;
+import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -59,21 +62,61 @@ public class UserController implements CommunityConstant {
     @Autowired
     private HostHolder hostHolder;
 
+    @Value("${qiniu.key.access}")
+    private String accessKey;
+
+    @Value("${qiniu.key.secret}")
+    private String secretKey;
+
+    @Value("${qiniu.bucket.name}")
+    private String imagesBucketName;
+
+    @Value("${qiniu.bucket.url}")
+    private String imagesBucketUrl;
+
     /**
      * 进入设置页
      * @return
      */
     @LoginRequired
     @RequestMapping(path = "/setting",method = RequestMethod.GET)
-    public String getSettingPage(){
+    public String getSettingPage(Model model){
+        //上传文件名称
+        String fileName=CommunityUtil.generateUUID();
+        //设置响应信息
+        StringMap policy = new StringMap();
+        policy.put("returnBody",CommunityUtil.getJSONString(0));
+        //生成上传凭证
+        Auth auth=Auth.create(accessKey, secretKey);
+        String uploadToken=auth.uploadToken(imagesBucketName,fileName,3600,policy);
+        model.addAttribute("uploadToken",uploadToken);
+        model.addAttribute("fileName",fileName);
         return "site/setting";
     }
 
     /**
-     * 上传头像
+     * 长传头像
+     * @param fileName
+     * @return
+     */
+    @RequestMapping(path="/header/url",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateHeaderUrl(String fileName){
+        if(fileName==null){
+            return CommunityUtil.getJSONString(1,"文件名不能为空！");
+        }
+        String url=imagesBucketUrl+"/"+fileName;
+        userService.updateHeader(hostHolder.getUser().getId(),url);
+        return CommunityUtil.getJSONString(0);
+    }
+
+
+    /**
+     * 上传头像 旧
      * @param headerImage
      * @param model
      * @return
+     * 废弃
      */
     @LoginRequired
     @RequestMapping(path = "/upload",method = RequestMethod.POST)
@@ -108,7 +151,7 @@ public class UserController implements CommunityConstant {
     }
 
     /**
-     * 头像路径转换
+     * 头像路径转换 旧
      * @param fileName
      * @param response
      */

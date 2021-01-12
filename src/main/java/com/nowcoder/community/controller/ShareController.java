@@ -47,6 +47,9 @@ public class ShareController implements CommunityConstant {
     @Value("${wk.image.storage}")
     private String wkImageStorage;
 
+    @Value("${qiniu.bucket.url}")
+    private String imagesBucketUrl;
+
     @RequestMapping(value = "/share",method = RequestMethod.GET)
     @ResponseBody
     public String share(String htmlUrl){
@@ -63,11 +66,18 @@ public class ShareController implements CommunityConstant {
         eventProducer.fireEvent(event);
 
         Map<String, Object> map=new HashMap<>();
-        map.put("shareUrl",domain+contextPath+"/share/image/"+fileName);
+        //map.put("shareUrl",domain+contextPath+"/share/image/"+fileName);
+        map.put("shareUrl",imagesBucketUrl+"/"+fileName);
 
         return CommunityUtil.getJSONString(0,null,map);
     }
 
+    /**
+     * 废弃
+     * 从本服务器获取分享图片
+     * @param fileName
+     * @param response
+     */
     @RequestMapping(value = "/share/image/{fileName}",method = RequestMethod.GET)
     public void getShareImage(@PathVariable("fileName") String fileName, HttpServletResponse response){
         if(StringUtils.isBlank(fileName)){
