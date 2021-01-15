@@ -22,8 +22,7 @@ spring:
     host: smtp.qq.com
     port: 465
     username: 896020325@qq.com
-    #授权码 msvypeymipibbbcf
-    password: msvypeymipibbbcf
+    password: dadadawaczcsasad
     protocol: smtps
     properties:
       mail:
@@ -109,5 +108,9 @@ qiniu:
     name: bubaierchi
     url: http://qmhwetlj7.hn-bkt.clouddn.com
 
+caffeine:
+  posts:
+    max-size: 15
+    expire-seconds: 180
 
 
